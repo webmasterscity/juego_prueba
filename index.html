@@ -9,16 +9,23 @@
 </head>
 <body>
     <div id="gameContainer">
+        <!-- Pantalla del Menú Principal -->
         <div id="menuScreen" class="screen active">
-            <h1 class="gameTitle">SPACE DEFENDER</h1>
-            <div class="menuButtons">
-                <button id="startBtn" class="menuBtn">JUGAR</button>
-                <button id="instructionsBtn" class="menuBtn">INSTRUCCIONES</button>
-                <button id="highscoresBtn" class="menuBtn">MEJORES PUNTOS</button>
-            </div>
-            <div class="gameStats">
-                <p>Nivel más alto: <span id="highestLevel">0</span></p>
-                <p>Puntuación más alta: <span id="highestScore">0</span></p>
+            <div class="screenContent">
+                <h1>🚀 SPACE DEFENDER</h1>
+                <p class="subtitle">Juego Espacial Adictivo con Todas las Mejoras</p>
+                
+                <div class="buttonGroup">
+                    <button id="startBtn" class="btn btn-primary">JUGAR</button>
+                    <button id="instructionsBtn" class="btn btn-secondary">INSTRUCCIONES</button>
+                    <button id="highscoresBtn" class="btn btn-secondary">PUNTUACIONES ALTAS</button>
+                    <button id="statsBtn" class="btn btn-secondary">📊 ESTADÍSTICAS</button>
+                </div>
+                
+                <div class="versionInfo">
+                    <p>Versión 2.0 - Sistema Avanzado Completo</p>
+                    <p>🎵 Audio • 👹 Jefes • ✨ Partículas • 🏆 Logros • 🔥 Combos</p>
+                </div>
             </div>
         </div>
 
@@ -32,7 +39,27 @@
                 </div>
                 <div class="uiBottom">
                     <div class="weapon">Arma: <span id="weapon">Básica</span></div>
-                    <div class="powerup">Power-up: <span id="powerup">Ninguno</span></div>
+                    <div class="powerup">Power-up: <span id="powerUp">Ninguno</span></div>
+                    <div class="time">Tiempo: <span id="time">0s</span></div>
+                </div>
+                
+                <!-- Player Stats -->
+                <div class="playerStats">
+                    <div class="health">Salud: <span id="playerHealth">100</span></div>
+                    <div class="shield">Escudo: <span id="playerShield">0</span></div>
+                    <div class="weaponType">Arma: <span id="playerWeapon">Básica</span></div>
+                </div>
+                
+                <!-- Información del Jefe -->
+                <div id="bossInfo" class="boss-info" style="display: none;">
+                    <div class="boss-header">
+                        <span class="boss-icon">👹</span>
+                        <span class="boss-name" id="bossName">Jefe</span>
+                    </div>
+                    <div class="boss-phase">
+                        <span class="label">Fase:</span>
+                        <span id="bossPhase" class="value">1</span>
+                    </div>
                 </div>
             </div>
             <button id="pauseBtn" class="pauseBtn">⏸️</button>
@@ -42,7 +69,7 @@
             <h2>PAUSA</h2>
             <div class="pauseButtons">
                 <button id="resumeBtn" class="menuBtn">CONTINUAR</button>
-                <button id="menuBtn" class="menuBtn">MENÚ</button>
+                <button id="backToMenuFromPause" class="menuBtn">MENÚ</button>
             </div>
         </div>
 
@@ -51,10 +78,12 @@
             <div class="finalStats">
                 <p>Puntuación final: <span id="finalScore">0</span></p>
                 <p>Nivel alcanzado: <span id="finalLevel">1</span></p>
+                <p>Tiempo de supervivencia: <span id="finalTime">0s</span></p>
+                <p>Combo máximo: <span id="finalCombo">0</span></p>
             </div>
             <div class="gameOverButtons">
-                <button id="restartBtn" class="menuBtn">JUGAR DE NUEVO</button>
-                <button id="menuBtn2" class="menuBtn">MENÚ</button>
+                <button id="playAgainBtn" class="menuBtn">JUGAR DE NUEVO</button>
+                <button id="backToMenuFromGameOver" class="menuBtn">MENÚ</button>
             </div>
         </div>
 
@@ -80,8 +109,147 @@
             <div id="highscoresList"></div>
             <button id="backToMenuBtn2" class="menuBtn">VOLVER AL MENÚ</button>
         </div>
+
+        <!-- Pantalla de Estadísticas -->
+        <div id="statsScreen" class="screen">
+            <div class="screenContent">
+                <h2>📊 Estadísticas del Juego</h2>
+                <div class="statsGrid">
+                    <div class="statCategory">
+                        <h3>🎯 Precisión</h3>
+                        <div class="statItem">
+                            <span class="label">Disparos Acertados:</span>
+                            <span id="shotsHit" class="value">0</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Disparos Totales:</span>
+                            <span id="shotsFired" class="value">0</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Precisión:</span>
+                            <span id="accuracy" class="value">0%</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Precisión:</span>
+                            <span id="accuracyValue" class="value">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="statCategory">
+                        <h3>🔥 Combo</h3>
+                        <div class="statItem">
+                            <span class="label">Combo Actual:</span>
+                            <span id="currentCombo" class="value">0</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Combo Máximo:</span>
+                            <span id="maxCombo" class="value">0</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Combo Máximo:</span>
+                            <span id="maxComboValue" class="value">0</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Tiempo de Combo:</span>
+                            <span id="comboTime" class="value">0s</span>
+                        </div>
+                    </div>
+                    
+                    <div class="statCategory">
+                        <h3>⚔️ Daño</h3>
+                        <div class="statItem">
+                            <span class="label">Daño Infligido:</span>
+                            <span id="damageDealt" class="value">0</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Daño Infligido:</span>
+                            <span id="damageDealtValue" class="value">0</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Daño Recibido:</span>
+                            <span id="damageTaken" class="value">0</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Daño Recibido:</span>
+                            <span id="damageTakenValue" class="value">0</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Ratio Daño:</span>
+                            <span id="damageRatio" class="value">0.0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="statCategory">
+                        <h3>⏱️ Supervivencia</h3>
+                        <div class="statItem">
+                            <span class="label">Tiempo Total:</span>
+                            <span id="totalTime" class="value">0s</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Tiempo Total:</span>
+                            <span id="survivalTimeValue" class="value">0s</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Dificultad Actual:</span>
+                            <span id="currentDifficulty" class="value">1.0x</span>
+                        </div>
+                        <div class="statItem">
+                            <span class="label">Nivel Máximo:</span>
+                            <span id="maxLevel" class="value">1</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="statsSummary">
+                    <h3>🏆 Resumen</h3>
+                    <div class="summaryGrid">
+                        <div class="summaryItem">
+                            <span class="label">Juegos Jugados:</span>
+                            <span id="totalGames" class="value">0</span>
+                        </div>
+                        <div class="summaryItem">
+                            <span class="label">Juegos Jugados:</span>
+                            <span id="totalGamesValue" class="value">0</span>
+                        </div>
+                        <div class="summaryItem">
+                            <span class="label">Puntuación Máxima:</span>
+                            <span id="highestScore" class="value">0</span>
+                        </div>
+                        <div class="summaryItem">
+                            <span class="label">Puntuación Máxima:</span>
+                            <span id="highestScoreValue" class="value">0</span>
+                        </div>
+                        <div class="summaryItem">
+                            <span class="label">Enemigos Destruidos:</span>
+                            <span id="totalEnemiesDestroyed" class="value">0</span>
+                        </div>
+                        <div class="summaryItem">
+                            <span class="label">Enemigos Destruidos:</span>
+                            <span id="enemiesDestroyed" class="value">0</span>
+                        </div>
+                        <div class="summaryItem">
+                            <span class="label">Power-ups Recogidos:</span>
+                            <span id="totalPowerUps" class="value">0</span>
+                        </div>
+                        <div class="summaryItem">
+                            <span class="label">Power-ups Recogidos:</span>
+                            <span id="powerUpsCollected" class="value">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="buttonGroup">
+                    <button id="backToMenuFromStats" class="btn btn-primary">Volver al Menú</button>
+                    <button id="resetStats" class="btn btn-danger">Resetear Estadísticas</button>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <script src="audio.js"></script>
+    <script src="effects.js"></script>
+    <script src="bosses.js"></script>
+    <script src="achievements.js"></script>
     <script src="game.js"></script>
 </body>
 </html>
