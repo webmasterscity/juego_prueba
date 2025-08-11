@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Defender - Juego Espacial Adictivo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="menuScreen" class="screen active">
+            <h1 class="gameTitle">SPACE DEFENDER</h1>
+            <div class="menuButtons">
+                <button id="startBtn" class="menuBtn">JUGAR</button>
+                <button id="instructionsBtn" class="menuBtn">INSTRUCCIONES</button>
+                <button id="highscoresBtn" class="menuBtn">MEJORES PUNTOS</button>
+            </div>
+            <div class="gameStats">
+                <p>Nivel más alto: <span id="highestLevel">0</span></p>
+                <p>Puntuación más alta: <span id="highestScore">0</span></p>
+            </div>
+        </div>
+
+        <div id="gameScreen" class="screen">
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            <div id="gameUI">
+                <div class="uiTop">
+                    <div class="score">Puntos: <span id="score">0</span></div>
+                    <div class="level">Nivel: <span id="level">1</span></div>
+                    <div class="lives">Vidas: <span id="lives">3</span></div>
+                </div>
+                <div class="uiBottom">
+                    <div class="weapon">Arma: <span id="weapon">Básica</span></div>
+                    <div class="powerup">Power-up: <span id="powerup">Ninguno</span></div>
+                </div>
+            </div>
+            <button id="pauseBtn" class="pauseBtn">⏸️</button>
+        </div>
+
+        <div id="pauseScreen" class="screen">
+            <h2>PAUSA</h2>
+            <div class="pauseButtons">
+                <button id="resumeBtn" class="menuBtn">CONTINUAR</button>
+                <button id="menuBtn" class="menuBtn">MENÚ</button>
+            </div>
+        </div>
+
+        <div id="gameOverScreen" class="screen">
+            <h2>GAME OVER</h2>
+            <div class="finalStats">
+                <p>Puntuación final: <span id="finalScore">0</span></p>
+                <p>Nivel alcanzado: <span id="finalLevel">1</span></p>
+            </div>
+            <div class="gameOverButtons">
+                <button id="restartBtn" class="menuBtn">JUGAR DE NUEVO</button>
+                <button id="menuBtn2" class="menuBtn">MENÚ</button>
+            </div>
+        </div>
+
+        <div id="instructionsScreen" class="screen">
+            <h2>INSTRUCCIONES</h2>
+            <div class="instructions">
+                <p><strong>Controles:</strong></p>
+                <p>• Flechas o WASD: Mover nave</p>
+                <p>• Espacio: Disparar</p>
+                <p>• P: Pausar</p>
+                <p>• ESC: Menú</p>
+                <br>
+                <p><strong>Objetivo:</strong></p>
+                <p>Destruye todos los enemigos para avanzar de nivel.</p>
+                <p>Recoge power-ups para mejorar tu nave.</p>
+                <p>¡Sobrevive el mayor tiempo posible!</p>
+            </div>
+            <button id="backToMenuBtn" class="menuBtn">VOLVER AL MENÚ</button>
+        </div>
+
+        <div id="highscoresScreen" class="screen">
+            <h2>MEJORES PUNTOS</h2>
+            <div id="highscoresList"></div>
+            <button id="backToMenuBtn2" class="menuBtn">VOLVER AL MENÚ</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
